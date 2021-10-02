@@ -1,4 +1,5 @@
 package com.bridgelabz;
+
 /**
  * purpose- To implement Snake And Ladder simulation using JAVA
  *
@@ -13,6 +14,8 @@ public class SnakeAndLadder {
         System.out.println("Welcome to the snake and ladder program");
         int startPosition = 0;
         System.out.println("Player position is" + startPosition);
+        double diceNo = Math.floor(((Math.random() * 10) % 6) + 1);
+        System.out.println("Dice number is = " + diceNo);
     }
 
 }
