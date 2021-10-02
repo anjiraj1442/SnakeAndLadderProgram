@@ -10,52 +10,47 @@ package com.bridgelabz;
 
 
 public class SnakeAndLadder {
+    public static final int IS_LADDER = 1;
+    public static final int IS_SNAKE = 2;
+    public static final int WINNING_POSITION = 100;
+    public static int playerPosition = 0;
+
+    static int diceCount = 0;
+
     public static void main(String[] args) {
-        System.out.println("Welcome to the snake and ladder program");
-        // constants
-        int LADDER = 1;
-        int SNAKE = 2;
-        int NOPLAY = 0;
-
-
-        int startPosition = 0;
-        int newPosition = 0;
-        int winPosition = 100;
-        System.out.println("Player position is " + startPosition);
-
-        while (startPosition < winPosition) {
-            //random function to get dice number
-            int diceNum = (int) Math.floor(((Math.random() * 10) % 6) + 1);
-            System.out.println("dice number is" + diceNum);
-            //logic to get whether it snake or ladder or no play
-            int option = (int) Math.floor(Math.random() * 10) % 3;
-            System.out.println("option is" + option);
-            switch (option) {
-                case 1:
-                    option = LADDER;
-                    newPosition += diceNum;
-                    break;
-                case 2:
-                    option = SNAKE;
-                    newPosition -= diceNum;
-                    break;
-                default:
-                    option = NOPLAY;
-                    newPosition += 0;
-            }
-
-            startPosition = startPosition + newPosition; //calculating the position of the dice
-
-            if (startPosition < 0) {
-                System.out.println("Restart the game");
-                startPosition = 0;
-
-            }
+        System.out.println("Welcome to snake and ladder project");
+        while (playerPosition < WINNING_POSITION) {
+            ++diceCount;
+            playerPosition = getPosition(playerPosition);
         }
+    }
 
+    public static int getPosition(int position) {
+        int diceNumber = (int) (Math.floor(Math.random() * 10) % 6 + 1);
+        int option = (int) (Math.floor(Math.random() * 10) % 3);
+        if (option == IS_SNAKE) {
+            System.out.println("It's Snake");
 
-        System.out.println("player on option :" + winPosition);
-        System.out.println("won the match");
+            if (position - diceNumber > playerPosition) {
+                position = position - diceNumber;
+            } else if (position < playerPosition) {
+                position = playerPosition;
+                System.out.println("Player moves below zero and starts from Zero");
+            }
+        } else if (option == IS_LADDER) {
+            System.out.println("It's Ladder ");
 
+            if (position + diceNumber <= WINNING_POSITION) {
+                position = position + diceNumber;
+            } else if (position > WINNING_POSITION) {
+                position = WINNING_POSITION;
+                System.out.println("Player moves above 100 and stoped");
+            }
+        } else {
+            System.out.println("No play");
+        }
+        System.out.println("dice count " + diceCount);
+        System.out.println("playerPosition " + position);
+        return position;
     }
 }
